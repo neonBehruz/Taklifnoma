@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Javohir & Sevinch — To‘y taklifnomasi</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Javohir & Sevinch — To‘y taklifnomasi">
+  <meta name="description" content="18-avgust, seshanba, soat 19:00 — «Afsona» to‘yxonasi">
+
+  <!-- Open Graph / Facebook / Telegram -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Javohir & Sevinch — To‘y taklifnomasi">
+  <meta property="og:description" content="18-avgust, seshanba, soat 19:00 — «Afsona» to‘yxonasi">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 3D Envelope Cover Overlay with Wax Seal -->
+  <div id="coverOverlay" class="cover-overlay" role="dialog" aria-label="Taklifnomani ochish">
+    <div class="door-left"></div>
+    <div class="door-right"></div>
+    
+    <div class="cover-content">
+      <p class="eyebrow" style="margin-bottom: 0.8rem;">Assalomu alaykum</p>
+      <h2 id="guestGreeting" class="font-serif emboss" style="font-size: clamp(1.8rem, 5vw, 2.5rem); font-style: italic; margin-bottom: 0.5rem;">
+        Hurmatli mehmonimiz,
+      </h2>
+      <p style="font-size: 0.95rem; color: var(--ink-soft); max-width: 320px; margin: 0 auto 1.5rem;">
+        sizga atalgan taklifnoma muhrlangan holda saqlanmoqda
+      </p>
+
+      <!-- Wax Seal Container -->
+      <div class="seal-container">
+        <div class="seal-pulse-ring"></div>
+        <div class="seal-pulse-ring"></div>
+        <button id="sealBtn" type="button" class="seal-btn" aria-label="Muhrni bosib taklifnomani oching">
+          <svg viewBox="0 0 200 200" class="seal-svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="sealGrad" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#b83238" />
+                <stop offset="50%" stop-color="#80191e" />
+                <stop offset="100%" stop-color="#4a080a" />
+              </radialGradient>
+              <filter id="shadow">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.5"/>
+              </filter>
+            </defs>
+
+            <!-- Wax Outer Stamp Shape -->
+            <circle cx="100" cy="100" r="88" fill="url(#sealGrad)" filter="url(#shadow)"/>
+            <circle cx="100" cy="100" r="76" fill="none" stroke="#f0dcae" stroke-width="2" stroke-dasharray="6,4" opacity="0.6"/>
+            <circle cx="100" cy="100" r="68" fill="none" stroke="#a37c39" stroke-width="1.5" opacity="0.8"/>
+
+            <!-- Initials J & S Monogram -->
+            <g fill="#f0dcae" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif">
+              <text x="75" y="114" font-size="44" font-weight="700">J</text>
+              <path d="M0 6c-2.5-1.5-4.5-3.2-4.5-5 0-1.3 1-2.2 2.2-2.2.8 0 1.5.5 1.8 1.1.3-.6 1-1.1 1.8-1.1 1.2 0 2.2.9 2.2 2.2 0 1.8-2 3.5-4.5 5Z" transform="translate(100 100) scale(1.4)" fill="#f0dcae"/>
+              <text x="125" y="114" font-size="44" font-weight="700">S</text>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <p class="eyebrow" style="margin-top: 1rem;">Muhrni bosing</p>
+
+      <div style="margin-top: 1.8rem;">
+        <h3 class="font-serif emboss" style="font-size: 2.2rem; color: var(--ink-main);">
+          Javohir <span style="color: var(--gold-deep); font-style: italic;">&</span> Sevinch
+        </h3>
+        <p class="eyebrow" style="margin-top: 0.4rem; color: var(--ink-soft);">
+          18-avgust, seshanba · 19:00
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Audio Element (Wedding - Muhammad Al Muqit) -->
+  <audio id="bgAudio" src="wedding.m4a" loop preload="auto"></audio>
+
+  <!-- Floating Audio Toggle Button -->
+  <button id="musicToggle" class="music-toggle" aria-label="Fon musiqasi" title="Musiqani yoqish/o'chirish">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--gold-deep)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+  </button>
+
+  <!-- Ambient Rose Petals & Gold Dust Canvas -->
+  <canvas id="petalsCanvas" class="petals-canvas"></canvas>
+
+  <!-- Main Website Content -->
+  <main>
+
+    <!-- Hero Header Section -->
+    <header class="hero-header">
+      <!-- Background Ambient Glows -->
+      <span class="aura" style="background: var(--gold-glow); width: 450px; height: 450px; top: -10%; left: -10%;"></span>
+      <span class="aura" style="background: var(--rose-acc); width: 380px; height: 380px; bottom: -5%; right: -5%;"></span>
+
+      <!-- Corner Ornaments -->
+      <svg class="ornament-corner top-left" viewBox="0 0 72 72">
+        <path fill="none" stroke="currentColor" stroke-width="1.2" d="M70 4C44 4 22 9 12 21 4 30 3 46 5 70"></path>
+        <path fill="none" stroke="currentColor" stroke-width="0.8" d="M68 12C46 13 28 18 19 28c-7 8-8 21-6 40" opacity="0.75"></path>
+        <circle cx="24" cy="19" r="1.6" fill="currentColor"></circle>
+      </svg>
+      <svg class="ornament-corner top-right" viewBox="0 0 72 72">
+        <path fill="none" stroke="currentColor" stroke-width="1.2" d="M70 4C44 4 22 9 12 21 4 30 3 46 5 70"></path>
+        <path fill="none" stroke="currentColor" stroke-width="0.8" d="M68 12C46 13 28 18 19 28c-7 8-8 21-6 40" opacity="0.75"></path>
+        <circle cx="24" cy="19" r="1.6" fill="currentColor"></circle>
+      </svg>
+      <svg class="ornament-corner bottom-left" viewBox="0 0 72 72">
+        <path fill="none" stroke="currentColor" stroke-width="1.2" d="M70 4C44 4 22 9 12 21 4 30 3 46 5 70"></path>
+        <path fill="none" stroke="currentColor" stroke-width="0.8" d="M68 12C46 13 28 18 19 28c-7 8-8 21-6 40" opacity="0.75"></path>
+        <circle cx="24" cy="19" r="1.6" fill="currentColor"></circle>
+      </svg>
+      <svg class="ornament-corner bottom-right" viewBox="0 0 72 72">
+        <path fill="none" stroke="currentColor" stroke-width="1.2" d="M70 4C44 4 22 9 12 21 4 30 3 46 5 70"></path>
+        <path fill="none" stroke="currentColor" stroke-width="0.8" d="M68 12C46 13 28 18 19 28c-7 8-8 21-6 40" opacity="0.75"></path>
+        <circle cx="24" cy="19" r="1.6" fill="currentColor"></circle>
+      </svg>
+
+      <!-- Glass Arch Card -->
+      <div class="glass-card arch-card reveal" style="padding: 4rem 2rem; max-width: 540px; width: 100%;">
+        <p class="eyebrow">Nikoh to‘yi tantanasi</p>
+        
+        <h1 class="couple-names emboss">
+          <span>Javohir</span>
+          <span class="and">va</span>
+          <span>Sevinch</span>
+        </h1>
+
+        <!-- Gold Ornament Divider -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 1.5rem 0;">
+          <div style="height: 1px; width: 60px; background: var(--gold-main);"></div>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--gold-deep)" stroke-width="1.5">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="var(--gold-light)"/>
+          </svg>
+          <div style="height: 1px; width: 60px; background: var(--gold-main);"></div>
+        </div>
+
+        <p class="eyebrow" style="color: var(--ink-soft);">18-avgust, seshanba</p>
+        <p style="margin-top: 0.5rem; font-size: 1.05rem; color: var(--ink-faint);">«Afsona» to‘yxonasi</p>
+      </div>
+
+      <!-- Scroll Cue Indicator -->
+      <div class="scroll-cue">
+        <span class="eyebrow" style="font-size: 0.65rem;">Pastga suring</span>
+        <div class="scroll-line"></div>
+      </div>
+    </header>
+
+    <!-- Quranic Verse Section -->
+    <section>
+      <span class="aura" style="background: var(--olive-acc); width: 400px; height: 400px; top: 10%; left: 50%; transform: translateX(-50%);"></span>
+      <div class="section-container">
+        <div class="reveal" style="text-align: center;">
+          <blockquote class="quote-box">
+            «Sizlarga o‘zaro tinchlik topishingiz uchun juftlaringizni yaratgani va oralaringizga muhabbat va rahmat solgani ham Uning oyatlaridandir.»
+          </blockquote>
+          <cite class="eyebrow" style="display: block; margin-top: 1.5rem; font-style: normal;">
+            Rum surasi, 21-oyat
+          </cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wedding Date & Calendar Section -->
+    <section>
+      <span class="aura" style="background: var(--gold-glow); width: 450px; height: 450px; top: 0; left: 50%; transform: translateX(-50%);"></span>
+      
+      <div class="section-container">
+        <div class="reveal" style="text-align: center; margin-bottom: 2rem;">
+          <p class="eyebrow">To‘y sanasi</p>
+          <h2 class="font-serif emboss" style="font-size: clamp(2.2rem, 6vw, 3.2rem); margin-top: 0.5rem;">
+            18-avgust, seshanba
+          </h2>
+        </div>
+
+        <!-- August 2026 Calendar Card -->
+        <div class="glass-card calendar-card reveal">
+          <div style="text-align: center; margin-bottom: 1rem;">
+            <span class="eyebrow">Avgust 2026</span>
+          </div>
+
+          <div class="hairline"></div>
+
+          <table class="calendar-table">
+            <thead>
+              <tr>
+                <th>Du</th><th>Se</th><th>Ch</th><th>Pa</th><th>Ju</th><th>Sh</th><th>Ya</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td>
+              </tr>
+              <tr>
+                <td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+              </tr>
+              <tr>
+                <td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td>
+              </tr>
+              <tr>
+                <td>17</td>
+                <td>
+                  <div class="wedding-day-badge" title="To'y kuni">18</div>
+                </td>
+                <td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+              </tr>
+              <tr>
+                <td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td>
+              </tr>
+              <tr>
+                <td>31</td><td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Start Time -->
+        <div class="reveal" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-top: 2rem;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--gold-deep)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 15 15"></polyline>
+          </svg>
+          <span class="font-serif" style="font-size: 2rem; font-weight: 700; color: var(--ink-main);">19:00</span>
+          <span class="eyebrow">boshlanish</span>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="reveal" style="margin-top: 3rem;">
+          <p class="eyebrow" style="text-align: center; margin-bottom: 1rem;">To‘yga qoldi</p>
+
+          <div class="countdown-grid">
+            <div class="glass-card countdown-box">
+              <div id="days" class="countdown-num">00</div>
+              <div class="countdown-label">kun</div>
+            </div>
+            <div class="glass-card countdown-box">
+              <div id="hours" class="countdown-num">00</div>
+              <div class="countdown-label">soat</div>
+            </div>
+            <div class="glass-card countdown-box">
+              <div id="minutes" class="countdown-num">00</div>
+              <div class="countdown-label">daqiqa</div>
+            </div>
+            <div class="glass-card countdown-box">
+              <div id="seconds" class="countdown-num">00</div>
+              <div class="countdown-label">soniya</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ceremony Schedule Section -->
+    <section>
+      <span class="aura" style="background: var(--rose-acc); width: 400px; height: 400px; top: 10%; left: 50%; transform: translateX(-50%);"></span>
+
+      <div class="section-container">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+          <p class="eyebrow">Marosim tartibi</p>
+          <h2 class="font-serif emboss" style="font-size: clamp(2.2rem, 6vw, 3.2rem); margin-top: 0.5rem;">
+            Kun dasturi
+          </h2>
+        </div>
+
+        <ol class="timeline-list reveal">
+          <li class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">19:00</div>
+            <div class="timeline-title">Mehmonlarni kutib olish</div>
+            <div class="timeline-desc">Kirish qismida suratga tushish va samimiy suhbatlar</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">19:30</div>
+            <div class="timeline-title">Tantanali marosim boshlanishi</div>
+            <div class="timeline-desc">Kelin va kuyovning zalga kirib kelishi</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">21:00</div>
+            <div class="timeline-title">Kelin-kuyov raqsi</div>
+            <div class="timeline-desc">Birinchi unutilmas kelin va kuyov raqsi</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">22:30</div>
+            <div class="timeline-title">Marosim yakuni</div>
+            <div class="timeline-desc">Esdalik suratlar va samimiy tilaklar bilan xayrlashuv</div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Venue Location Section -->
+    <section>
+      <span class="aura" style="background: var(--gold-glow); width: 450px; height: 450px; top: 10%; left: 50%; transform: translateX(-50%);"></span>
+
+      <div class="section-container">
+        <div class="reveal" style="text-align: center; margin-bottom: 2.5rem;">
+          <p class="eyebrow">Tantanali marosim</p>
+          <h2 class="font-serif emboss" style="font-size: clamp(2.2rem, 6vw, 3.2rem); margin-top: 0.5rem;">
+            Manzil
+          </h2>
+        </div>
+
+        <div class="glass-card venue-box reveal">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" style="margin-bottom: 1rem;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+
+          <h3 class="font-serif" style="font-size: 2rem; color: var(--ink-main);">«Afsona» to‘yxonasi</h3>
+          <p style="color: var(--ink-soft); margin-top: 0.5rem; font-size: 0.95rem;">
+            Toshkent shahri, Afsona to'yxonasi majmuasi
+          </p>
+
+          <div class="hairline"></div>
+
+          <div class="map-buttons">
+            <a href="https://yandex.uz/maps" target="_blank" rel="noopener noreferrer" class="btn-gold">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+              </svg>
+              Yandex Maps'da ko'rish
+            </a>
+
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-outline">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dress Code Section -->
+    <section>
+      <div class="section-container">
+        <div class="reveal" style="text-align: center; margin-bottom: 2rem;">
+          <p class="eyebrow">Kiyinish uslubi</p>
+          <h2 class="font-serif emboss" style="font-size: clamp(2.2rem, 6vw, 3.2rem); margin-top: 0.5rem;">
+            Dress Code
+          </h2>
+        </div>
+
+        <div class="glass-card reveal" style="padding: 2.5rem 2rem; text-align: center; max-width: 580px; margin: 0 auto;">
+          <p style="color: var(--ink-soft); font-size: 1rem; line-height: 1.7;">
+            Kechamizni yanada chiroyli va uyg'un o'tkazish uchun quyidagi muloyim hamda klassik ranglar gamutidan kiyim tanlashingizni so'raymiz:
+          </p>
+
+          <div class="palette-grid">
+            <div class="palette-swatch" style="background: #f4eae1;" title="Soft Cream"></div>
+            <div class="palette-swatch" style="background: #d8c29d;" title="Dusty Gold"></div>
+            <div class="palette-swatch" style="background: #9fa894;" title="Sage Green"></div>
+            <div class="palette-swatch" style="background: #4a453f;" title="Classic Charcoal"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section>
+      <span class="aura" style="background: var(--gold-glow); width: 450px; height: 450px; top: 10%; left: 50%; transform: translateX(-50%);"></span>
+
+      <div class="section-container">
+        <div class="reveal" style="text-align: center; margin-bottom: 2.5rem;">
+          <p class="eyebrow">Tashrifni tasdiqlash</p>
+          <h2 class="font-serif emboss" style="font-size: clamp(2.2rem, 6vw, 3.2rem); margin-top: 0.5rem;">
+            Sizni kutamiz!
+          </h2>
+        </div>
+
+        <div class="glass-card rsvp-form-card reveal">
+          <form id="rsvpForm">
+            <div class="form-group">
+              <label for="rsvpName" class="form-label">Ismingiz va familiyangiz</label>
+              <input type="text" id="rsvpName" class="form-input" placeholder="Masalan: Ali Valiyev" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tashrif buyurasizmi?</label>
+              <div class="radio-group">
+                <div class="radio-card">
+                  <input type="radio" id="attendingYes" name="attendance" value="Albatta boraman" checked>
+                  <label for="attendingYes">Albatta boraman</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" id="attendingNo" name="attendance" value="Afsuski bora olmayman">
+                  <label for="attendingNo">Bora olmayman</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Kim bilan tashrif buyurasiz?</label>
+              <div class="radio-group">
+                <div class="radio-card">
+                  <input type="radio" id="guestSingle" name="companion" value="Bir o'zim" checked>
+                  <label for="guestSingle">Bir o'zim</label>
+                </div>
+                <div class="radio-card">
+                  <input type="radio" id="guestCouple" name="companion" value="Hamrohim bilan">
+                  <label for="guestCouple">Hamrohim bilan</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 1rem; padding: 1rem;">
+              Tashrifni tasdiqlash ✨
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guest Personal Link Generator Section (Utility for Javohir & Sevinch) -->
+    <section style="background: rgba(205, 166, 97, 0.05); padding: 4rem 1.5rem;">
+      <div class="section-container">
+        <div class="generator-bar reveal">
+          <h3 class="font-serif" style="font-size: 1.5rem; color: var(--gold-deep); margin-bottom: 0.5rem;">
+            Shaxsiy link yaratish vositasi (Kuyov & Kelin uchun)
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1.25rem;">
+            Har bir mehmon nomiga maxsus taklifnoma havolasini tayyorlab mehmonga yuborishingiz mumkin:
+          </p>
+
+          <div style="display: flex; gap: 0.75rem; max-width: 480px; margin: 0 auto; flex-wrap: wrap;">
+            <input type="text" id="customGuestInput" class="form-input" placeholder="Mehmon ismi (masalan: Hurmatli Ali aka)" style="flex: 1; min-width: 220px;">
+            <button id="generateLinkBtn" type="button" class="btn-gold">Link yaratish</button>
+          </div>
+
+          <div id="generatedResultArea" style="display: none; margin-top: 1.25rem;">
+            <input type="text" id="generatedUrlInput" class="form-input" readonly style="background: #fff; margin-bottom: 0.75rem; text-align: center;">
+            <button id="copyLinkBtn" type="button" class="btn-outline">Nusxalash 📋</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 3rem 1.5rem; border-top: 1px solid var(--bg-card-border); color: var(--ink-faint); font-size: 0.85rem;">
+    <p class="font-serif" style="font-size: 1.4rem; color: var(--ink-main); margin-bottom: 0.4rem;">Javohir & Sevinch</p>
+    <p>18-Avgust 2026 · Toshkent</p>
+  </footer>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
