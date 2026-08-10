@@ -1,13 +1,16 @@
-// Javohir & Sevinch Wedding Invitation Script
+// Javohir & Sevinch Wedding Invitation Script — Cinematic UX
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements
+  // Core Elements
   const coverOverlay = document.getElementById('coverOverlay');
   const sealBtn = document.getElementById('sealBtn');
   const musicToggle = document.getElementById('musicToggle');
+  const heroPlayBtn = document.getElementById('heroPlayBtn');
   const guestGreetingElem = document.getElementById('guestGreeting');
   const rsvpForm = document.getElementById('rsvpForm');
   const toastElem = document.getElementById('toast');
-  
+  const navbar = document.getElementById('navbar');
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
   const bgAudio = document.getElementById('bgAudio');
   
   let isMusicPlaying = false;
@@ -20,22 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (guestParam) {
       try {
-        // Base64 Decode
         const decodedStr = atob(guestParam);
         const guestData = JSON.parse(decodedStr);
         if (guestData && guestData.n) {
-          guestGreetingElem.textContent = guestData.n;
-          // Prefill RSVP Name if available
+          if (guestGreetingElem) guestGreetingElem.textContent = guestData.n;
           const rsvpNameInput = document.getElementById('rsvpName');
           if (rsvpNameInput && !rsvpNameInput.value) {
             rsvpNameInput.value = guestData.n.replace(/^(Hurmatli|Qadrli)\s+/i, '');
           }
         }
       } catch (e) {
-        // Raw string fallback
         try {
           const rawText = atob(guestParam);
-          if (rawText) guestGreetingElem.textContent = rawText;
+          if (rawText && guestGreetingElem) guestGreetingElem.textContent = rawText;
         } catch (err) {
           console.warn("Could not decode guest param:", err);
         }
@@ -44,10 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initGuestGreeting();
 
-  // 2. Audio Control Functions (Wedding - Muhammad Al Muqit)
+  // 2. Sticky Navbar & Mobile Menu Logic
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  if (hamburgerBtn && mobileMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      hamburgerBtn.textContent = mobileMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.textContent = '☰';
+      });
+    });
+  }
+
+  // 3. Audio Control Functions (Wedding - Muhammad Al Muqit)
   function playWeddingMusic() {
     if (bgAudio) {
-      bgAudio.volume = 0.8;
+      bgAudio.volume = 0.85;
       const playPromise = bgAudio.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
@@ -79,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
         audioContext.resume();
       }
 
-      // Play elegant chime on opening
       const osc = audioContext.createOscillator();
       const gain = audioContext.createGain();
       osc.type = 'triangle';
@@ -99,41 +121,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 3. Open Envelope Cover Event
-  sealBtn.addEventListener('click', () => {
-    playWaxSealSound();
-    coverOverlay.classList.add('opened');
-    
-    // Start background music (Wedding - Muhammad Al Muqit)
-    playWeddingMusic();
-
-    // Start falling rose petals & gold dust animation
-    startPetalsAnimation();
-
-    // Trigger reveal animations for hero elements
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          el.classList.add('visible');
-        }
-      });
-    }, 400);
-  });
-
-  // Music Toggle Button
-  musicToggle.addEventListener('click', () => {
-    if (bgAudio && !bgAudio.paused) {
-      pauseWeddingMusic();
-      showToast("Musiqa o'chirildi 🔇");
-    } else {
+  // Open Envelope Cover Event
+  if (sealBtn) {
+    sealBtn.addEventListener('click', () => {
+      playWaxSealSound();
+      coverOverlay.classList.add('opened');
       playWeddingMusic();
-      showToast("Muhammad Al Muqit - Wedding 🎵");
-    }
-  });
+      startPetalsAnimation();
 
-  // 4. Live Countdown Timer (18 August 2026 19:00)
-  const targetDate = new Date('2026-08-18T19:00:00+05:00').getTime();
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('visible');
+          }
+        });
+      }, 400);
+    });
+  }
+
+  // Audio Toggle Button Event
+  if (musicToggle) {
+    musicToggle.addEventListener('click', () => {
+      if (bgAudio && !bgAudio.paused) {
+        pauseWeddingMusic();
+        showToast("Musiqa o'chirildi 🔇");
+      } else {
+        playWeddingMusic();
+        showToast("Muhammad Al Muqit - Wedding 🎵");
+      }
+    });
+  }
+
+  if (heroPlayBtn) {
+    heroPlayBtn.addEventListener('click', () => {
+      if (bgAudio && !bgAudio.paused) {
+        pauseWeddingMusic();
+      } else {
+        playWeddingMusic();
+        showToast("Muhammad Al Muqit - Wedding 🎵");
+      }
+    });
+  }
+
+  // 4. Countdown Timer Target: 20 September 2026 18:00
+  const targetDate = new Date('2026-09-20T18:00:00+05:00').getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -145,25 +177,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-      document.getElementById('days').textContent = String(days).padStart(2, '0');
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      if (document.getElementById('days')) document.getElementById('days').textContent = String(days).padStart(2, '0');
+      if (document.getElementById('hours')) document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      if (document.getElementById('minutes')) document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      if (document.getElementById('seconds')) document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
     } else {
-      document.getElementById('days').textContent = '00';
-      document.getElementById('hours').textContent = '00';
-      document.getElementById('minutes').textContent = '00';
-      document.getElementById('seconds').textContent = '00';
+      if (document.getElementById('days')) document.getElementById('days').textContent = '00';
+      if (document.getElementById('hours')) document.getElementById('hours').textContent = '00';
+      if (document.getElementById('minutes')) document.getElementById('minutes').textContent = '00';
+      if (document.getElementById('seconds')) document.getElementById('seconds').textContent = '00';
     }
   }
-
   setInterval(updateCountdown, 1000);
   updateCountdown();
 
-  // 5. Scroll Intersection Observer for Reveal Elements
+  // 5. Reveal Scroll Observer
   const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -176,32 +207,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // 6. RSVP Form Submission
+  // 6. Lightbox Modal Functions
+  window.openLightbox = function(src) {
+    const lightbox = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    if (lightbox && lightboxImg) {
+      lightboxImg.src = src;
+      lightbox.classList.add('open');
+    }
+  };
+
+  window.closeLightbox = function() {
+    const lightbox = document.getElementById('lightboxModal');
+    if (lightbox) {
+      lightbox.classList.remove('open');
+    }
+  };
+
+  // Close lightbox on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // 7. RSVP Form Submission
   if (rsvpForm) {
     rsvpForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const name = document.getElementById('rsvpName').value.trim();
-      const status = document.querySelector('input[name="attendance"]:checked')?.value || 'Albatta boraman';
-      const count = document.querySelector('input[name="companion"]:checked')?.value || 'Bir o\'zim';
+      const name = document.getElementById('rsvpName')?.value.trim();
+      const phone = document.getElementById('rsvpPhone')?.value.trim() || '';
+      const status = document.querySelector('input[name="attendance"]:checked')?.value || 'Ha, albatta!';
 
       if (!name) {
         showToast("Iltimos, ismingizni kiriting!");
         return;
       }
 
-      // Save locally
       const responses = JSON.parse(localStorage.getItem('taklifnoma_rsvp') || '[]');
-      responses.push({ name, status, count, date: new Date().toISOString() });
+      responses.push({ name, phone, status, date: new Date().toISOString() });
       localStorage.setItem('taklifnoma_rsvp', JSON.stringify(responses));
 
-      showToast(`Rahmat, ${name}! Tashrifingiz tasdiqlandi ✨`);
+      showToast(`Rahmat, ${name}! Ishtirokingiz tasdiqlandi ✨`);
       rsvpForm.reset();
     });
   }
 
-  // 7. Toast Notification Helper
+  // 8. Toast Helper
   function showToast(message) {
+    if (!toastElem) return;
     toastElem.textContent = message;
     toastElem.classList.add('show');
     setTimeout(() => {
@@ -209,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3500);
   }
 
-  // 8. Guest Link Generator (For Javohir & Sevinch)
+  // 9. Guest Link Generator (For Couple)
   const generateBtn = document.getElementById('generateLinkBtn');
   const customGuestInput = document.getElementById('customGuestInput');
   const generatedUrlInput = document.getElementById('generatedUrlInput');
@@ -223,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Encode as Base64 JSON
       const jsonPayload = JSON.stringify({ n: guestName });
       const encoded = btoa(unescape(encodeURIComponent(jsonPayload)));
       
@@ -239,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 9. Rose Petals & Golden Dust Canvas Particle System
+  // 10. Rose Petals & Golden Dust Canvas Particle System
   const canvas = document.getElementById('petalsCanvas');
   let animationId = null;
 
@@ -260,10 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const goldColors = ['#ffd700', '#f0dcae', '#cda661', '#fff3cf'];
 
     const particles = [];
-    const numPetals = Math.min(Math.floor(width / 35), 32);
-    const numGold = Math.min(Math.floor(width / 25), 45);
+    const numPetals = Math.min(Math.floor(width / 35), 30);
+    const numGold = Math.min(Math.floor(width / 25), 40);
 
-    // Create Petals
     for (let i = 0; i < numPetals; i++) {
       particles.push({
         type: 'petal',
@@ -283,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Create Gold Dust
     for (let i = 0; i < numGold; i++) {
       particles.push({
         type: 'gold',
@@ -309,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
           p.x += p.speedX + Math.sin(p.swing) * 0.8;
           p.rotation += p.rotationSpeed;
 
-          // Recycle particle at top
           if (p.y > height + 20) {
             p.y = -20;
             p.x = Math.random() * width;
