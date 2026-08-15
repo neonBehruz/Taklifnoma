@@ -467,6 +467,52 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   QURAN AYAH SECTION (RUM SURASI, 21-OYAT)
+   -------------------------------------------------------------------------- */
+.ayah-section {
+  padding: clamp(5.5rem, 11vw, 9rem) 2rem;
+  background: radial-gradient(ellipse 75% 65% at 50% 50%, #FAF6F0 0%, #EFE7DA 100%);
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(200, 166, 106, 0.15);
+  border-bottom: 1px solid rgba(200, 166, 106, 0.15);
+}
+
+.ayah-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ayah-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.8vw, 1.85rem);
+  line-height: 1.85;
+  color: #382E26;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  position: relative;
+}
+
+.ayah-source {
+  font-family: var(--font-sans);
+  font-size: clamp(0.7rem, 1.8vw, 0.78rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #968069;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
    OUR STORY SECTION (EDITORIAL POLAROID STYLING)
    -------------------------------------------------------------------------- */
 .story-section {
@@ -1172,91 +1218,409 @@ body {
   transform: translateY(0);
 }
 
-/* --------------------------------------------------------------------------
-   RESPONSIVE DESIGN (MOBILE & TABLET OPTIMIZATIONS)
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   RESPONSIVE DESIGN — DESKTOP-FEEL ON ALL SCREENS
+   Goal: Keep cinematic desktop aesthetic on tablet, mobile & small phones
+   ========================================================================== */
+
+/* ── TABLET (≤ 1024px) ─────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  /* Navbar */
+  .navbar { padding: 1rem 1.75rem; }
+  .navbar.scrolled { padding: 0.85rem 1.75rem; }
+
+  /* Hero: convert to fullscreen cinematic overlay */
   .hero-section {
-    grid-template-columns: 1fr;
+    display: block;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
   }
 
+  /* Image becomes absolute fullscreen background */
   .hero-right {
-    min-height: 60vh;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: unset;
+    order: unset;
+    z-index: 0;
   }
 
+  .hero-right::after {
+    background:
+      linear-gradient(180deg,
+        rgba(18,26,21,0.45) 0%,
+        rgba(18,26,21,0.2) 30%,
+        rgba(18,26,21,0.7) 75%,
+        rgba(18,26,21,0.92) 100%);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* Text floats over the image */
   .hero-left {
-    padding: 7rem 2.5rem 4rem;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 5rem 3rem 6rem;
+    background: transparent;
   }
 
-  .story-grid,
-  .details-container,
-  .location-container,
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .scroll-discover {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .timeline-row {
+  /* Story: keep 2-col on tablet */
+  .story-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
   }
 
-  .timeline-row::before {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem 1.5rem;
+  /* Details / Location: keep 2-col on tablet */
+  .details-container {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
   }
 
-  .nav-links {
-    display: none;
+  .location-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
   }
 
-  .nav-hamburger {
-    display: block;
+  .cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 
-  .countdown-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .details-photo-box { height: 320px; }
+
+  /* Timeline */
+  .timeline-row {
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
   }
 
-  .ring-card {
-    width: 120px;
-    height: 120px;
+  .timeline-row::before { display: block; }
+}
+
+/* ── MOBILE (≤ 768px) ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar { padding: 0.9rem 1.25rem; }
+  .navbar.scrolled { padding: 0.75rem 1.25rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+
+  /* Cover Overlay */
+  .cover-content {
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
+    width: 92%;
   }
 
-  .ring-num {
-    font-size: 2.2rem;
+  /* Hero: fullscreen cinematic (same as tablet) */
+  .hero-section {
+    display: block;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .hero-right {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: unset;
+    order: unset;
+    z-index: 0;
+  }
+
+  .hero-right::after {
+    background:
+      linear-gradient(180deg,
+        rgba(18,26,21,0.5) 0%,
+        rgba(18,26,21,0.15) 25%,
+        rgba(18,26,21,0.65) 70%,
+        rgba(18,26,21,0.95) 100%);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1.5rem 5.5rem;
+    background: transparent;
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-date {
+    font-size: 1.15rem;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-quote {
+    font-size: 1.65rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .scroll-discover {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Story: stack on mobile */
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .story-content {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .story-photos {
+    height: 380px;
+    margin: 0 auto;
+    max-width: 380px;
+    width: 100%;
+  }
+
+  /* Countdown */
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 360px;
+  }
+
+  .ring-card { width: 125px; height: 125px; }
+  .ring-num { font-size: 2.3rem; }
+
+  /* Details */
+  .details-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .details-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .detail-item {
+    padding: 1rem 0.25rem;
+  }
+
+  .detail-item:last-child { border-right: none; }
+
+  .details-photo-box { height: 240px; }
+
+  /* Timeline */
+  .timeline-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .timeline-row::before { display: none; }
+
+  /* Location */
+  .location-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .map-wrapper { height: 280px; }
+
+  /* Cards */
+  .cards-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .detail-item {
-    border-right: none;
-    border-bottom: 1px solid rgba(200, 166, 106, 0.2);
-    padding-bottom: 1.25rem;
-  }
-
+  /* Gallery */
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
-  .timeline-row {
-    grid-template-columns: 1fr;
-  }
+  .gallery-item { height: 200px; }
+
+  /* Paddings */
+  .story-section,
+  .timeline-section,
+  .details-section,
+  .location-section,
+  .gallery-section,
+  .cards-section { padding: 5rem 1.25rem; }
+
+  .countdown-section,
+  .rsvp-section { padding: 5rem 1.25rem; }
 
   .details-card-box,
   .location-info-card,
   .rsvp-card,
   .paper-card,
-  .envelope-card {
-    padding: 2.5rem 1.5rem;
-  }
+  .envelope-card { padding: 2rem 1.5rem; }
+
+  .final-section { min-height: 75vh; }
 }
+
+/* ── SMALL PHONE (≤ 480px) ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Cover */
+  .cover-content { padding: 1.75rem 1.25rem; width: 95%; }
+  .seal-container { width: 90px; height: 90px; margin: 1.25rem auto; }
+  .seal-btn { width: 76px; height: 76px; }
+
+  /* Hero */
+  .hero-left { padding: 3.5rem 1.25rem 5rem; }
+
+  .hero-title {
+    font-size: clamp(2.3rem, 12vw, 3.2rem);
+  }
+
+  .hero-date { font-size: 1.05rem; letter-spacing: 0.15em; }
+  .hero-quote { font-size: 1.45rem; margin-bottom: 1.5rem; }
+
+  /* Story polaroids */
+  .story-photos { height: 320px; max-width: 320px; }
+
+  .polaroid-card.card-1 {
+    width: 185px; height: 230px;
+    top: 0; left: 10px;
+  }
+
+  .polaroid-card.card-2 {
+    width: 178px; height: 222px;
+    top: 68px; right: 10px;
+  }
+
+  .polaroid-caption { font-size: 1.25rem; }
+
+  /* Countdown */
+  .countdown-grid { gap: 0.85rem; max-width: 300px; }
+  .ring-card { width: 110px; height: 110px; }
+  .ring-num { font-size: 2rem; }
+  .ring-label { font-size: 0.6rem; }
+
+  /* Details grid: keep 3 cols but compact */
+  .details-grid { gap: 0.5rem; }
+  .detail-val { font-size: 1.1rem; }
+  .detail-icon { width: 28px; height: 28px; }
+
+  /* Timeline */
+  .timeline-row { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .timeline-icon-ring { width: 60px; height: 60px; }
+  .timeline-time { font-size: 1.15rem; }
+  .timeline-label { font-size: 0.78rem; }
+
+  /* Gallery */
+  .gallery-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .gallery-item { height: 240px; }
+
+  /* Map */
+  .map-wrapper { height: 240px; }
+
+  /* Music / toast */
+  .music-toggle { bottom: 1.25rem; right: 1.25rem; width: 46px; height: 46px; }
+  .toast { font-size: 0.82rem; padding: 0.65rem 1.2rem; width: 90%; text-align: center; }
+
+  /* Titles */
+  .script-title { font-size: clamp(1.9rem, 8vw, 3rem); }
+
+  /* Section paddings */
+  .story-section,
+  .timeline-section,
+  .details-section,
+  .location-section,
+  .gallery-section,
+  .cards-section { padding: 4rem 1rem; }
+
+  .countdown-section,
+  .rsvp-section { padding: 4rem 1rem; }
+
+  .details-card-box,
+  .location-info-card,
+  .rsvp-card,
+  .paper-card,
+  .envelope-card { padding: 1.75rem 1rem; }
+
+  /* RSVP radio */
+  .radio-grid { grid-template-columns: 1fr; }
+}
+
+/* ── EXTRA SMALL (≤ 380px) ─────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .hero-title { font-size: clamp(2rem, 13vw, 2.6rem); }
+  .ring-card { width: 96px; height: 96px; }
+  .ring-num { font-size: 1.75rem; }
+  .countdown-grid { max-width: 256px; gap: 0.7rem; }
+
+  .story-photos { height: 280px; max-width: 280px; }
+  .polaroid-card.card-1 { width: 155px; height: 193px; }
+  .polaroid-card.card-2 { width: 148px; height: 185px; top: 56px; }
+
+  .gallery-item { height: 200px; }
+
+  .cover-content { padding: 1.5rem 1rem; }
+  .seal-container { width: 80px; height: 80px; }
+  .seal-btn { width: 68px; height: 68px; }
+}
+
+/* ── LANDSCAPE PHONE ────────────────────────────────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-left {
+    justify-content: center;
+    padding: 4.5rem 3rem 3rem;
+    min-height: 100vh;
+  }
+
+  .hero-title { font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 1rem; }
+  .hero-quote { font-size: 1.4rem; margin-bottom: 1.25rem; }
+
+  .cover-content {
+    padding: 1rem 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .seal-container { margin: 0.75rem auto; }
+}
+
+
+
